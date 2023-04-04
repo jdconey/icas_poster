@@ -1,0 +1,190 @@
+% Gemini theme
+% https://github.com/anishathalye/gemini
+%
+% We try to keep this Overleaf template in sync with the canonical source on
+% GitHub, but it's recommended that you obtain the template directly from
+% GitHub to ensure that you are using the latest version.
+
+\documentclass[final]{beamer}
+
+% ====================
+% Packages
+% ====================
+\setbeamertemplate{caption label separator}{: }
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+%\usepackage[size=custom,width=120,height=72,scale=1.0]{beamerposter}
+\usepackage[orientation=landscape,size=a0,scale=1.25]{beamerposter}
+\usetheme{gemini}
+\usecolortheme{mit}
+
+\definecolor{mypres}{RGB}{0,150,215}
+
+% setting some colors for the theme
+\setbeamercolor{palette primary}{fg=mypres,bg=white}
+\setbeamercolor{palette secondary}{fg=mypres,bg=white}
+\setbeamercolor{itemize item}{fg=mypres}
+\setbeamercolor{structure}{fg=mypres,bg=white}
+\setbeamercolor{title in head/foot}{fg=black,bg=white}
+\setbeamercolor{date in head/foot}{fg=gray,bg=white}
+
+\setbeamercolor{titlelike}{parent=structure,bg=yellow!85!orange}
+
+\setbeamercolor*{frametitle}{fg=white,bg=mypres}
+\setbeamercolor*{framesubtitle}{fg=white,bg=mypres}
+
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\usepackage{tabularx}
+
+% ====================
+% Bibliography
+% ====================
+
+\usepackage{xpatch}
+\usepackage[
+backend=biber,
+style=authoryear,
+sorting=nyvt, 
+isbn=false,
+doi=true,
+giveninits=true,
+maxcitenames=2,
+uniquename=false,
+uniquelist=false,
+maxbibnames=99,
+arxivId=true,
+]{biblatex}
+\addbibresource{poster.bib}
+
+\DeclareNameAlias{sortname}{family-given}
+
+\xpatchbibmacro{date+extradate}{%
+  \printtext[parens]%
+}{%
+  \setunit*{\addperiod\space}%
+  \printtext%
+}{}{} 
+
+\xpatchbibmacro{volume+number+eid}{%
+  \setunit*{\adddot}%
+}{%
+}{}{}
+
+\renewbibmacro*{journal+issuetitle}{%
+  \usebibmacro{journal}%
+  \setunit*{\addperiod\space}%
+  \iffieldundef{series}
+    {}
+    {\newunit
+     \printfield{series}%
+     \setunit{\addspace}}%
+  \usebibmacro{volume+number+eid}%
+  \setunit{\addspace}%
+  \usebibmacro{issue+date}%
+  \setunit{\addcolon\space}%
+  \usebibmacro{issue}%
+  \newunit}
+
+%%%separated bib here
+%\setlength\bibitemsep{\baselineskip}
+
+
+\renewcommand*{\nameyeardelim}{\addcomma\space}
+\DeclareFieldFormat[article]{title}{#1}
+\DeclareFieldFormat[article]{volume}{\mkbibbold{#1}}
+\DeclareFieldFormat[article]{number}{\mkbibparens{#1}}
+\renewbibmacro{in:}{}
+
+\DeclareFieldFormat[dataset]{title}{#1}
+\DeclareFieldFormat[dataset]{publisher}{\textit{#1}}
+
+\renewcommand*{\bibfont}{\small}
+
+% ====================
+% Lengths
+% ====================
+
+% If you have N columns, choose \sepwidth and \colwidth such that
+% (N+1)*\sepwidth + N*\colwidth = \paperwidth
+\newlength{\sepwidth}
+\newlength{\colwidth}
+\setlength{\sepwidth}{0.025\paperwidth}
+\setlength{\colwidth}{0.3\paperwidth}
+
+\newcommand{\separatorcolumn}{\begin{column}{\sepwidth}\end{column}}
+
+% ====================
+% Title
+% ====================
+
+\title{Title}
+
+\author{\textbf{Arthur Dent}\inst{1,2} (\texttt{\href{mailto:a.dent@leeds.ac.uk}{a.dent@leeds.ac.uk}})}
+
+\institute[shortinst]{\inst{1} Institute for Climate and Atmospheric Science, School of Earth and Environment, University of Leeds \samelineand \inst{2} School of Facts, University of Leeds}
+
+% ====================
+% Body
+% ====================
+
+\begin{document}
+
+\begin{frame}[t]
+\begin{tikzpicture}[remember picture,overlay]
+\node at ([xshift=-8.5cm - 0.025\paperwidth,
+yshift=-5cm]current page.north east)
+  {\includegraphics[height=5cm]{Leeds_University_Logo.pdf}};
+  
+  \node at ([xshift=-36cm - 0.025\paperwidth,
+yshift=-5cm]current page.north east)
+  {\includegraphics[height=5cm]{UKRI_NER_Council-Logo_Horiz-CMYK[W] (1).pdf}};
+  
+ \node at ([xshift=-21.5cm - 0.025\paperwidth,
+yshift=-5cm]current page.north east)
+  {\includegraphics[height=5cm]{image (1) (1).pdf}};
+
+
+\end{tikzpicture}
+
+\begin{columns}[t]
+\separatorcolumn
+
+\begin{column}{\colwidth}
+\begin{block}{Potato}
+
+\end{block}
+
+\end{column}
+\separatorcolumn
+\begin{column}{\colwidth}
+\begin{alertblock}{Cake after seminars}
+
+
+\end{alertblock}
+\end{column}
+
+
+\separatorcolumn
+
+\begin{column}{\colwidth}
+\begin{alertblock}{Reasons why biscuits are bad}
+
+
+\end{alertblock}
+\printbibliography
+
+\end{column}
+
+
+\separatorcolumn
+
+\end{columns}
+
+\end{frame}
+
+\end{document}
